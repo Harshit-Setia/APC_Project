@@ -34,8 +34,7 @@ public class InventorymanagementApplication {
                 System.out.println("6. Exit");
                 System.out.print("Enter choice: ");
 
-                int choice = sc.nextInt();
-                sc.nextLine(); // consume newline
+                int choice = readInt(sc);
 
                 switch (choice) {
                     case 1 -> {
@@ -44,39 +43,35 @@ public class InventorymanagementApplication {
                         System.out.print("Enter category: ");
                         String category = sc.nextLine();
                         System.out.print("Enter price: ");
-                        double price = sc.nextDouble();
+                        double price = readDouble(sc);
                         System.out.print("Enter quantity: ");
-                        int quantity = sc.nextInt();
-                        sc.nextLine();
+                        int quantity = readInt(sc);
 
                         Product p = new Product(0, name, category, price, quantity);
                         service.addProduct(p);
-                        System.out.println("✅ Product added!");
+                        System.out.println("Product added!");
                     }
                     case 2 -> {
                         System.out.print("Enter product ID to update: ");
-                        int id = sc.nextInt();
-                        sc.nextLine();
+                        int id = readInt(sc);
                         System.out.print("Enter new name: ");
                         String name = sc.nextLine();
                         System.out.print("Enter new category: ");
                         String category = sc.nextLine();
                         System.out.print("Enter new price: ");
-                        double price = sc.nextDouble();
+                        double price = readDouble(sc);
                         System.out.print("Enter new quantity: ");
-                        int quantity = sc.nextInt();
-                        sc.nextLine();
+                        int quantity = readInt(sc);
 
                         Product p = new Product(id, name, category, price, quantity);
                         service.updateProduct(p);
-                        System.out.println("✅ Product updated!");
+                        System.out.println("Product updated!");
                     }
                     case 3 -> {
                         System.out.print("Enter product ID to delete: ");
-                        int id = sc.nextInt();
-                        sc.nextLine();
+                        int id = readInt(sc);
                         service.deleteProduct(id);
-                        System.out.println("✅ Product deleted!");
+                        System.out.println("Product deleted!");
                     }
                     case 4 -> {
                         List<Product> products = service.getAllProducts();
@@ -87,23 +82,45 @@ public class InventorymanagementApplication {
                     }
                     case 5 -> {
                         System.out.print("Enter product ID: ");
-                        int id = sc.nextInt();
-                        sc.nextLine();
+                        int id = readInt(sc);
                         Product prod = service.getProductById(id);
                         if (prod != null) {
                             System.out.println("Product: " + prod);
                         } else {
-                            System.out.println("❌ Product not found!");
+                            System.out.println("Product not found!");
                         }
                     }
                     case 6 -> {
                         exit = true;
                         System.out.println("Exiting... Bye!");
                     }
-                    default -> System.out.println("❌ Invalid choice! Try again.");
+                    default -> System.out.println("Invalid choice! Try again.");
                 }
             }
             sc.close();
         };
+    }
+
+    // Helper methods for input validation
+    private int readInt(Scanner sc) {
+        while (true) {
+            try {
+                String input = sc.nextLine();
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid number! Please enter again: ");
+            }
+        }
+    }
+
+    private double readDouble(Scanner sc) {
+        while (true) {
+            try {
+                String input = sc.nextLine();
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid number! Please enter again: ");
+            }
+        }
     }
 }

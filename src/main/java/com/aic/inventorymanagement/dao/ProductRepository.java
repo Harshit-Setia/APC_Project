@@ -15,15 +15,29 @@ public class ProductRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     public int save(Product product) {
-        String sql = "INSERT INTO products(name, category, price, quantity) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql,
-                product.getName(),
-                product.getCategory(),
-                product.getPrice(),
-                product.getQuantity());
+    // Get all existing IDs sorted
+    String sqlIds = "SELECT id FROM products ORDER BY id ASC";
+    List<Integer> ids = jdbcTemplate.queryForList(sqlIds, Integer.class);
+
+    int nextId = 1; 
+
+    // Find the smallest missing ID
+    for (int id : ids) {
+        if (id == nextId) {
+            nextId++;
+        } else if (id > nextId) {
+            break; // found a gap
+        }
     }
 
+    String sql = "INSERT INTO products(id, name, category, price, quantity) VALUES(?, ?, ?, ?, ?)";
+    return jdbcTemplate.update(sql, nextId, product.getName(), product.getCategory(),
+            product.getPrice(), product.getQuantity());
+   }
+
+   
     public int update(Product product) {
         String sql = "UPDATE products SET name=?, category=?, price=?, quantity=? WHERE id=?";
         return jdbcTemplate.update(sql,

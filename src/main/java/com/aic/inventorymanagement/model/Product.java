@@ -7,7 +7,7 @@ public class Product {
     private double price;
     private int quantity;
 
-    // ✅ Default constructor (needed by Spring JDBC)
+    //Default constructor (needed by Spring JDBC)
     public Product() {
     }
 
@@ -25,7 +25,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {   // ✅ Setter needed for mapping
+    public void setId(int id) {   // Setter needed for mapping
         this.id = id;
     }
 
@@ -33,7 +33,7 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {   // ✅ Added setter
+    public void setName(String name) {   
         this.name = name;
     }
 
@@ -41,7 +41,7 @@ public class Product {
         return category;
     }
 
-    public void setCategory(String category) {   // ✅ Added setter
+    public void setCategory(String category) {   
         this.category = category;
     }
 
