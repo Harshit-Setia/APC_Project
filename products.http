@@ -1,0 +1,37 @@
+@host = http://localhost:8080/products
+
+### Create a new product
+POST {{host}}
+Content-Type: application/json
+
+{
+  "name": "Sample Product",
+  "category": "Electronics",
+  "price": 19.99,
+  "quantity": 100
+}
+
+### Get All Products
+GET {{host}}
+Accept: application/json
+
+### Get product by ID
+GET {{host}}/5
+Accept: application/json
+
+### Update product (id included in body, not URL)
+PUT {{host}}/8
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "category": "Electronics",
+  "price": 24.99,
+  "quantity": 150
+}
+
+
+### Delete product
+DELETE {{host}}/5
+Accept: application/json
+
